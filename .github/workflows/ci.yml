@@ -30,7 +30,7 @@ jobs:
           PYO3_USE_ABI3_FORWARD_COMPATIBILITY: '1'
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist -i python3.8 python3.9 python3.10 python3.11 python3.12 python3.13
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
