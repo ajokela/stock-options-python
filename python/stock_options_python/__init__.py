@@ -26,6 +26,7 @@ from .stock_options_python import (
     bs_rho,
     bs_greeks,
     # Bjerksund-Stensland (American options)
+    am_price,
     am_delta,
     am_gamma,
     am_theta,
@@ -45,6 +46,7 @@ __all__ = [
     "bs_rho",
     "bs_greeks",
     # Bjerksund-Stensland
+    "am_price",
     "am_delta",
     "am_gamma",
     "am_theta",

@@ -180,6 +180,27 @@ fn bs_greeks(s: f64, k: f64, t: f64, r: f64, sigma: f64, q: f64, option_type: &s
 // Bjerksund-Stensland Functions (American Options)
 // ============================================================================
 
+/// Calculate the price of an American option using Bjerksund-Stensland 2002.
+///
+/// Args:
+///     s: Current price of the underlying asset
+///     k: Strike price of the option
+///     t: Time to expiration in years
+///     r: Risk-free interest rate
+///     sigma: Volatility of the underlying asset
+///     q: Dividend yield
+///     option_type: 'call' or 'put'
+///
+/// Returns:
+///     The price of the American option
+#[pyfunction]
+#[pyo3(signature = (s, k, t, r, sigma, q=0.0, option_type="call"))]
+fn am_price(s: f64, k: f64, t: f64, r: f64, sigma: f64, q: f64, option_type: &str) -> PyResult<f64> {
+    let opt_type = parse_option_type(option_type)?;
+    bjerksund_stensland::price(s, k, t, r, sigma, q, opt_type)
+        .map_err(|e| PyErr::new::<PyValueError, _>(e.to_string()))
+}
+
 /// Calculate the delta of an American option using Bjerksund-Stensland.
 ///
 /// Args:
@@ -323,6 +344,7 @@ fn stock_options_python(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(bs_greeks, m)?)?;
 
     // Bjerksund-Stensland (American)
+    m.add_function(wrap_pyfunction!(am_price, m)?)?;
     m.add_function(wrap_pyfunction!(am_delta, m)?)?;
     m.add_function(wrap_pyfunction!(am_gamma, m)?)?;
     m.add_function(wrap_pyfunction!(am_theta, m)?)?;
