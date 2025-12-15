@@ -1,0 +1,14 @@
+[package]
+name = "stock-options-python"
+version = "0.1.0"
+edition = "2021"
+description = "Python bindings for the stock-options crate - option pricing Greeks calculations"
+license = "BSD-3-Clause"
+
+[lib]
+name = "stock_options_python"
+crate-type = ["cdylib"]
+
+[dependencies]
+stock-options = "0.1.0"
+pyo3 = { version = "0.20", features = ["extension-module"] }
