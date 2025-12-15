@@ -334,7 +334,7 @@ fn am_greeks(s: f64, k: f64, t: f64, r: f64, sigma: f64, q: f64, option_type: &s
 /// - Black-Scholes model (European options): bs_* functions
 /// - Bjerksund-Stensland model (American options): am_* functions
 #[pymodule]
-fn stock_options_python(_py: Python, m: &PyModule) -> PyResult<()> {
+fn stock_options_python(m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Black-Scholes (European)
     m.add_function(wrap_pyfunction!(bs_delta, m)?)?;
     m.add_function(wrap_pyfunction!(bs_gamma, m)?)?;
